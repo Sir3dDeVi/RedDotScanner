@@ -1,0 +1,17 @@
+import "ViewModel/MainViewModel.idl";
+
+
+namespace RedDotScanner
+{
+    [default_interface]
+    runtimeclass MainWindow : Microsoft.UI.Xaml.Window, Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        MainWindow();
+
+        IInspectable CurrentTab { get; set; };
+        Microsoft.UI.Xaml.Visibility SetupViewVisibility { get; };
+        Microsoft.UI.Xaml.Visibility CaptureViewVisibility { get; };
+        
+        MainViewModel ViewModel { get; };
+    }
+}

@@ -1,0 +1,195 @@
+int getNextToken(const string& str, int strLen, int startIndex)
+{
+    if (startIndex >= strLen)
+        return -1;
+
+    for (int i = startIndex; i < strLen; ++i) {
+        if (str[i] == ' ')
+            return i;
+    }
+    
+    return strLen;
+}
+
+char parseInput(const string& input, char& port, char& power, long& angle)
+{
+    // 0. Parse port
+    switch (input[0]) {
+        case 'A':
+        case 'a':
+            port = OUT_A;
+            break;
+        case 'B':
+        case 'b':
+            port = OUT_B;
+            break;
+        case 'C':
+        case 'c':
+            port = OUT_C;
+            break;
+        default:
+            return -1;
+    }
+    
+    char parsedItems = 0;
+    
+    // <port> [<power> [<angle>]]
+    // A
+    // A 10
+    // A 10 900
+    
+    const int inputLen = strlen(input);
+    
+    const int idxPowerEnd = getNextToken(input, inputLen, 2);
+    if (idxPowerEnd != -1) {
+        string s = SubStr(input, 2, idxPowerEnd - 2);
+        power = StrToNum(s);
+        ++parsedItems;
+        
+        if ((idxPowerEnd + 1) < inputLen) {
+            s = SubStr(input, idxPowerEnd + 1, inputLen - (idxPowerEnd + 1));
+            angle = StrToNum(s);
+            ++parsedItems;
+        }
+        /*const int idxAngleEnd = getNextToken(input, inputLen, idxPowerEnd + 1);
+        if (idxAngleEnd != -1) {
+            s = SubStr(input, idxPowerEnd + 1, idxAngleEnd - (idxPowerEnd + 1));
+            angle = StrToNum(s);
+            ++parsedItems;
+        }*/
+    }
+
+    return parsedItems;
+}
+
+#define CTRL_INBOX MAILBOX1
+#define CTRL_OUTBOX MAILBOX1
+
+
+bool motorBControlEnabled = false;
+long motorBTarget = 0;
+
+task doMotorB()
+{
+    while (true) {
+        if (motorBControlEnabled) {
+            long currentAngle = MotorTachoCount(OUT_B);
+            long diff = motorBTarget - currentAngle;
+
+            string out = StrCat(
+                NumToStr(motorBTarget), " ", NumToStr(currentAngle),
+                " ", NumToStr(diff), "          "
+            );
+            TextOut(0, LCD_LINE1, out);
+
+            if (abs(diff) > 360)
+                OnFwdEx(OUT_B, sign(diff) * 100, RESET_NONE);
+            else if (abs(diff) > 180)
+                OnFwdEx(OUT_B, sign(diff) * 50, RESET_NONE);
+            else if (abs(diff) > 5)
+                OnFwdEx(OUT_B, sign(diff) * 10, RESET_NONE);
+            else if (abs(diff) <= 5)
+                CoastEx(OUT_B, RESET_NONE);
+        }
+        Wait(1);
+    }
+}
+
+bool motorCControlEnabled = false;
+long motorCTarget = 0;
+
+task doMotorC()
+{
+    while (true) {
+        if (motorCControlEnabled) {
+            long currentAngle = MotorTachoCount(OUT_C);
+            long diff = motorCTarget - currentAngle;
+
+            string out = StrCat(
+                NumToStr(motorCTarget), " ", NumToStr(currentAngle),
+                " ", NumToStr(diff), "          "
+            );
+            TextOut(0, LCD_LINE2, out);
+
+            if (abs(diff) > 360)
+                OnFwdEx(OUT_C, sign(diff) * 100, RESET_NONE);
+            else if (abs(diff) > 180)
+                OnFwdEx(OUT_C, sign(diff) * 50, RESET_NONE);
+            else if (abs(diff) > 5)
+                OnFwdEx(OUT_C, sign(diff) * 10, RESET_NONE);
+            else if (abs(diff) <= 5)
+                CoastEx(OUT_C, RESET_NONE);
+        }
+        Wait(1);
+    }
+}
+
+task main()
+{
+    ResetAllTachoCounts(OUT_ABC);
+
+    PlayToneEx(440, 100, 1, false);
+    Wait(200);
+    PlayToneEx(440, 100, 1, false);
+    
+    start doMotorB;
+    start doMotorC;
+    
+    string input, response;
+
+    while (true) {
+        ReceiveRemoteString(CTRL_INBOX, true, input);
+        
+        char port = -1;
+        char power = -1;
+        long angle = 0;
+        char n = parseInput(input, port, power, angle);
+        
+        switch (n) {
+            case 0:
+                // Get port info
+                response = StrCat(
+                    NumToStr(MotorActualSpeed(port)),
+                    " ",
+                    NumToStr(MotorTachoCount(port))
+                );
+                TextOut(0, LCD_LINE1, response);
+                SendResponseString(CTRL_OUTBOX, response);
+                break;
+            case 1:
+                // Set speed
+                switch (port) {
+                    case OUT_B:
+                        motorBControlEnabled = false;
+                        Wait(5);
+                        break;
+                    case OUT_C:
+                        motorCControlEnabled = false;
+                        Wait(5);
+                        break;
+                }
+                
+                if (power == 0)
+                    CoastEx(port, RESET_NONE);
+                else
+                    OnFwdEx(port, power, RESET_NONE);
+                break;
+            case 2:
+                // Set speed and position
+                
+                //RotateMotor(port, power, angle - MotorTachoCount(port));
+                
+                switch (port) {
+                    case OUT_B:
+                        motorBTarget = angle;
+                        motorBControlEnabled = true;
+                        break;
+                    case OUT_C:
+                        motorCTarget = angle;
+                        motorCControlEnabled = true;
+                        break;
+                }
+                break;
+        }
+    }
+}

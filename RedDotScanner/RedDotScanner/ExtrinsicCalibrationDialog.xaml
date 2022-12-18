@@ -1,0 +1,86 @@
+﻿<ContentDialog
+    x:Class="RedDotScanner.ExtrinsicCalibrationDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:RedDotScanner"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
+    xmlns:wg="using:Windows.Globalization.NumberFormatting"
+    mc:Ignorable="d"
+
+    Title="Extrinsic calibration"
+    CloseButtonText="Close"
+    PrimaryButtonText="Calibrate"
+    DefaultButton="Primary"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    IsPrimaryButtonEnabled="{x:Bind CanCalibrate, Mode=OneWay}"
+>
+    <ContentDialog.Resources>
+        <local:BoolToVisibilityConverter x:Key="VisibilityConverter" />
+    </ContentDialog.Resources>
+    
+    <StackPanel>
+        <Grid>
+            <Image Width="640" Height="480" Source="{x:Bind Camera.PreviewFrame, Mode=OneWay}" />
+            <canvas:CanvasControl
+                x:Name="Canvas"
+                Draw="Canvas_Draw"
+                
+                PointerMoved="Canvas_PointerMoved"
+                PointerPressed="Canvas_PointerPressed"
+                PointerReleased="Canvas_PointerReleased"
+                PointerExited="Canvas_PointerReleased"
+            />
+        </Grid>
+        <Grid Margin="0 8 0 0">
+            <StackPanel Orientation="Horizontal" Visibility="{x:Bind IsPointSelected, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+                <TextBlock Margin="0 0 8 6" VerticalAlignment="Bottom">X:</TextBlock>
+                <NumberBox Value="{x:Bind SelectedPoint.WorldX, Mode=TwoWay}" SpinButtonPlacementMode="Hidden" SmallChange="1" NumberFormatter="{x:Bind CoordinateFormatter}"  Width="64" />
+
+                <TextBlock Margin="16 0 8 6" VerticalAlignment="Bottom">Y:</TextBlock>
+                <NumberBox Value="{x:Bind SelectedPoint.WorldY, Mode=TwoWay}" SpinButtonPlacementMode="Hidden" SmallChange="1" NumberFormatter="{x:Bind CoordinateFormatter}" Width="64" />
+
+                <TextBlock Margin="16 0 8 6" VerticalAlignment="Bottom">Z:</TextBlock>
+                <NumberBox Value="{x:Bind SelectedPoint.WorldZ, Mode=TwoWay}" SpinButtonPlacementMode="Hidden" SmallChange="1" NumberFormatter="{x:Bind CoordinateFormatter}" Width="64" />
+
+                <Button
+                    FontFamily="{StaticResource SymbolThemeFontFamily}"
+                    Content="&#xE74D;"
+                    HorizontalAlignment="Center"
+                                
+                    Width="32"
+                    Height="32"
+                    FontSize="16"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Padding="0"
+                    Margin="24 0 0 0"
+                
+                    Visibility="Visible"
+                    
+                    Click="DeleteCalibrationPoint_Click"
+                />
+            </StackPanel>
+
+            <Button
+                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                Content="&#xE712;"
+                HorizontalAlignment="Right"
+                                
+                Width="32"
+                Height="32"
+                FontSize="16"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Padding="0"
+            >
+                <Button.Flyout>
+                    <Flyout>
+                        <Slider Header="Exposure" Minimum="0" Maximum="255" Value="{x:Bind Camera.Exposure, Mode=TwoWay}" Width="256" />
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+        </Grid>
+    </StackPanel>
+</ContentDialog>

@@ -1,0 +1,69 @@
+﻿<UserControl
+    x:Class="RedDotScanner.LaserTurretControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:RedDotScanner"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel>
+        <Grid HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Width" Value="40" />
+                    <Setter Property="Height" Value="36" />
+                    <Setter Property="FontFamily" Value="{StaticResource SymbolThemeFontFamily}" />
+                    <Setter Property="FontSize" Value="16" />
+                    <Setter Property="Margin" Value="4" />
+                    <Setter Property="IsEnabled" Value="{x:Bind LaserTurret.IsAvailable, Mode=OneWay}" />
+                </Style>
+            </Grid.Resources>
+
+            <Button x:Name="TiltUpButton" Grid.Column="1" Grid.Row="0" CornerRadius="16 16 0 0" Content="&#xE70E;" />
+            <Button x:Name="TiltDownButton" Grid.Column="1" Grid.Row="2" CornerRadius="0 0 16 16" Content="&#xE70D;" />
+            <Button x:Name="PanLeftButton"  Grid.Column="0" Grid.Row="1" CornerRadius="16 0 0 16" Content="&#xE76B;" />
+            <Button x:Name="PanRightButton" Grid.Column="2" Grid.Row="1" CornerRadius="0 16 16 0" Content="&#xE76C;" />
+        </Grid>
+        <Grid Margin="0 8 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.Resources>
+                <Style x:Key="ValueIcon" TargetType="TextBlock">
+                    <Setter Property="FontFamily" Value="{StaticResource SymbolThemeFontFamily}" />
+                    <Setter Property="Width" Value="16" />
+                    <Setter Property="Height" Value="16" />
+                </Style>
+                <Style x:Key="ValueText" TargetType="TextBlock">
+                    <Setter Property="Margin" Value="4 0" />
+                    <Setter Property="Foreground" Value="{ThemeResource TextFillColorTertiaryBrush}" />
+                    <Setter Property="Width" Value="56" />
+                </Style>
+            </Grid.Resources>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Style="{StaticResource PanIcon}" />
+                <TextBlock Style="{StaticResource PanTiltValue}" Text="{x:Bind LaserTurret.Pan, Mode=OneWay}" />
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Style="{StaticResource TiltIcon}" />
+                <TextBlock Style="{StaticResource PanTiltValue}" Text="{x:Bind LaserTurret.Tilt, Mode=OneWay}" />
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</UserControl>
