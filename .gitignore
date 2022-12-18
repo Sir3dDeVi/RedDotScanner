@@ -1,0 +1,15 @@
+RedDotScanner/.vs
+
+RedDotScanner/Debug
+RedDotScanner/Release
+RedDotScanner/packages/
+
+RedDotScanner/cvsba/Debug/
+RedDotScanner/cvsba/Release/
+
+RedDotScanner/RedDotScanner/Debug/
+RedDotScanner/RedDotScanner/Generated Files/
+RedDotScanner/RedDotScanner/Release/
+
+RedDotScanner/ScannerCore/Debug/
+RedDotScanner/ScannerCore/Release/

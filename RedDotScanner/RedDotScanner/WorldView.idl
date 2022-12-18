@@ -1,0 +1,11 @@
+import "Direct3DPanel.idl";
+
+
+namespace RedDotScanner
+{
+    [default_interface]
+    runtimeclass WorldView : Direct3DPanel
+    {
+        WorldView();
+    }
+}

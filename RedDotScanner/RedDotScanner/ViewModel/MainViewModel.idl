@@ -1,0 +1,164 @@
+import "WorldView.idl";
+
+
+namespace RedDotScanner
+{
+	runtimeclass NXTDeviceInfo
+	{
+		NXTDeviceInfo(String name, String resourceName);
+
+		String Name { get; };
+		String ResourceName { get; };
+	}
+
+	runtimeclass LaserTurret : Microsoft.UI.Xaml.Data.INotifyPropertyChanged, Windows.Foundation.IClosable
+	{
+		LaserTurret(Microsoft.UI.Dispatching.DispatcherQueue dispatcherQueue);
+
+		Windows.Foundation.Collections.IObservableVector<NXTDeviceInfo> NXTDevices { get; };
+		NXTDeviceInfo CurrentNXTDevice { get; set; };
+		void RefreshNXTDevices();
+
+		Boolean IsAvailable { get; };
+
+		UInt8 LaserPower { get; set; };
+
+		Int32 Pan { get; };
+		UInt8 PanSpeed { get; };
+		Int32 Tilt { get; };
+		UInt8 TiltSpeed { get; };
+
+		void TiltRotate(Int16 speed);
+		void PanRotate(Int16 speed);
+		void RotateTo(Int32 pan, UInt8 panSpeed, Int32 tilt, UInt8 tiltSpeed);
+	}
+
+	enum PreviewType
+	{
+		Color,
+		Undistorted,
+		Thresholded
+	};
+
+	runtimeclass ExtrinsicCalibrationPoint : Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+	{
+		ExtrinsicCalibrationPoint();
+
+		Single ImageX { get; set; };
+		Single ImageY { get; set; };
+
+		Single WorldX { get; set; };
+		Single WorldY { get; set; };
+		Single WorldZ { get; set; };
+	}
+
+	runtimeclass Camera : Microsoft.UI.Xaml.Data.INotifyPropertyChanged, Windows.Foundation.IClosable
+	{
+		// General info
+		String Name { get; };
+		Int32 FrameWidth { get; };
+		Int32 FrameHeight { get; };
+		Double FPS { get; };
+		Double ImageProcessingTimeMs { get; };
+
+		// Previewing
+		PreviewType PreviewType { get; set; };
+		Microsoft.UI.Xaml.Media.Imaging.WriteableBitmap PreviewFrame { get; };
+		Boolean IsPreviewingColor { get; };
+		Boolean IsPreviewingUndistorted { get; };
+		Boolean IsPreviewingThresholded { get; };
+
+		// Point
+		Boolean IsPointVisible { get; };
+		Windows.Foundation.Point Point { get; };
+
+		// Parameter(s)
+		UInt8 Exposure { get; set; };
+		UInt8 Threshold { get; set; };
+
+		// Intrinsic calibration VM
+		Int32 ChessboardX { get; set; };
+		Int32 ChessboardY { get; set; };
+		Boolean ProcessChessboardImage();
+		Windows.Foundation.Collections.IObservableVector<Microsoft.UI.Xaml.Media.Imaging.WriteableBitmap> IntrinsicCalibrationFrames { get; };
+		void IntrinsicCalibrate();
+
+		// Extrinsic calibration VM
+		Windows.Foundation.Collections.IObservableVector<ExtrinsicCalibrationPoint> ExtrinsicCalibrationPoints { get; };
+		void ExtrinsicCalibrate();
+	}
+
+	runtimeclass Triangulator : Microsoft.UI.Xaml.Data.INotifyPropertyChanged, Windows.Foundation.IClosable
+	{
+		Triangulator(Microsoft.UI.Dispatching.DispatcherQueue dispatcherQueue, WorldView worldView);
+
+		void RefreshCameras();
+		Windows.Foundation.Collections.IObservableVector<Camera> Cameras { get; };
+
+		String PointXString { get; };
+		String PointYString { get; };
+		String PointZString { get; };
+	}
+
+	runtimeclass PanTilt : Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+	{
+		PanTilt();
+		PanTilt(Int32 pan, Int32 tilt);
+
+		Int32 Pan { get; set; };
+		Int32 Tilt { get; set; };
+	}
+
+	runtimeclass BundleAdjustmentResult
+	{
+		BundleAdjustmentResult();
+		BundleAdjustmentResult(Double initReprojError, Double calibReprojError);
+
+		Double InitialReprojectionError { get; };
+		Double CalibrationReprojectionError { get; };
+	}
+
+	runtimeclass Scanner : Microsoft.UI.Xaml.Data.INotifyPropertyChanged, Windows.Foundation.IClosable
+	{
+		Scanner(Microsoft.UI.Dispatching.DispatcherQueue dispatcherQueue, WorldView worldView);
+
+		Triangulator Triangulator { get; };
+		LaserTurret LaserTurret { get; };
+
+		Boolean IsAvailable { get; };
+
+		PanTilt ScanAreaA { get; set; };
+		PanTilt ScanAreaB { get; set; };
+		PanTilt ScanAreaC { get; set; };
+		PanTilt ScanAreaD { get; set; };
+
+		Int32 SampleCountU { get; set; };
+		Int32 SampleCountV { get; set; };
+
+		Boolean IsScanning { get; };
+		void StartScanning();
+		void StopScanning();
+		void SaveScanToObj(String filename);
+
+		Boolean IsStartButtonEnabled { get; };
+		Boolean IsStopButtonEnabled { get; };
+		Boolean IsCaptureDataAvailable { get; };
+
+		Int32 ProgressValue { get; };
+		Int32 ProgressMax { get; };
+
+		void Save(String filename);
+		void Load(String filename);
+
+		BundleAdjustmentResult RunBundleAdjustment();
+
+		void DoLeveling();
+	}
+
+	runtimeclass MainViewModel : Microsoft.UI.Xaml.Data.INotifyPropertyChanged, Windows.Foundation.IClosable
+	{
+		MainViewModel(Microsoft.UI.Dispatching.DispatcherQueue dispatcherQueue, WorldView worldView);
+
+		Scanner Scanner { get; };
+	}
+}

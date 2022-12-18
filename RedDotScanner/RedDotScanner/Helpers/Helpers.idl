@@ -1,0 +1,12 @@
+namespace RedDotScanner
+{
+	runtimeclass DoubleToStringConverter : [default] Microsoft.UI.Xaml.Data.IValueConverter
+	{
+		DoubleToStringConverter();
+	}
+
+	runtimeclass BoolToVisibilityConverter : [default] Microsoft.UI.Xaml.Data.IValueConverter
+	{
+		BoolToVisibilityConverter();
+	}
+}

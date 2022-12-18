@@ -1,0 +1,6 @@
+[submodule "RedDotScanner/3rdparty/PS3EYEDriver"]
+	path = RedDotScanner/3rdparty/PS3EYEDriver
+	url = https://github.com/Sir3dDeVi/PS3EYEDriver.git
+[submodule "RedDotScanner/3rdparty/cvsba"]
+	path = RedDotScanner/3rdparty/cvsba
+	url = https://github.com/KavehFathian/cvsba.git

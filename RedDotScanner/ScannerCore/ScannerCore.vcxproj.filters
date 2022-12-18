@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\nxt">
+      <UniqueIdentifier>{60ea95fe-4718-4469-9b19-eda14f75664a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scanner">
+      <UniqueIdentifier>{fb240e71-3f76-461d-8bbd-2bcb245a05ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\nxt">
+      <UniqueIdentifier>{e422c6e0-57f1-44f9-9709-e6ee02301160}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scanner">
+      <UniqueIdentifier>{562f4c3f-8eac-4500-8f06-c5822e108780}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ps3eye">
+      <UniqueIdentifier>{b7190afd-c19c-4875-b26e-bc48fdaee5d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ps3eye">
+      <UniqueIdentifier>{449037ac-ac53-4333-bc28-ceee01cc456a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nxt\NXT.h">
+      <Filter>Header Files\nxt</Filter>
+    </ClInclude>
+    <ClInclude Include="nxt\NXTCommands.h">
+      <Filter>Header Files\nxt</Filter>
+    </ClInclude>
+    <ClInclude Include="scanner\NXTLaserTurret.h">
+      <Filter>Header Files\scanner</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdparty\PS3EYEDriver\src\ps3eye.h">
+      <Filter>Header Files\ps3eye</Filter>
+    </ClInclude>
+    <ClInclude Include="scanner\Types.h">
+      <Filter>Header Files\scanner</Filter>
+    </ClInclude>
+    <ClInclude Include="scanner\FrameGrabberThread.h">
+      <Filter>Header Files\scanner</Filter>
+    </ClInclude>
+    <ClInclude Include="scanner\Camera.h">
+      <Filter>Header Files\scanner</Filter>
+    </ClInclude>
+    <ClInclude Include="scanner\Triangulator.h">
+      <Filter>Header Files\scanner</Filter>
+    </ClInclude>
+    <ClInclude Include="scanner\IntrinsicParameters.h">
+      <Filter>Header Files\scanner</Filter>
+    </ClInclude>
+    <ClInclude Include="scanner\ExtrinsicParameters.h">
+      <Filter>Header Files\scanner</Filter>
+    </ClInclude>
+    <ClInclude Include="EventSource.h">
+      <Filter>Header Files\scanner</Filter>
+    </ClInclude>
+    <ClInclude Include="scanner\Scanner.h">
+      <Filter>Header Files\scanner</Filter>
+    </ClInclude>
+    <ClInclude Include="scanner\PS3EyeCamera.h">
+      <Filter>Header Files\scanner</Filter>
+    </ClInclude>
+    <ClInclude Include="scanner\Leveler.h">
+      <Filter>Header Files\scanner</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="nxt\NXT.cpp">
+      <Filter>Source Files\nxt</Filter>
+    </ClCompile>
+    <ClCompile Include="scanner\NXTLaserTurret.cpp">
+      <Filter>Source Files\scanner</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdparty\PS3EYEDriver\src\ps3eye.cpp">
+      <Filter>Source Files\ps3eye</Filter>
+    </ClCompile>
+    <ClCompile Include="scanner\FrameGrabberThread.cpp">
+      <Filter>Source Files\scanner</Filter>
+    </ClCompile>
+    <ClCompile Include="scanner\Camera.cpp">
+      <Filter>Source Files\scanner</Filter>
+    </ClCompile>
+    <ClCompile Include="scanner\Triangulator.cpp">
+      <Filter>Source Files\scanner</Filter>
+    </ClCompile>
+    <ClCompile Include="scanner\IntrinsicParameters.cpp">
+      <Filter>Source Files\scanner</Filter>
+    </ClCompile>
+    <ClCompile Include="scanner\ExtrinsicParameters.cpp">
+      <Filter>Source Files\scanner</Filter>
+    </ClCompile>
+    <ClCompile Include="scanner\Scanner.cpp">
+      <Filter>Source Files\scanner</Filter>
+    </ClCompile>
+    <ClCompile Include="scanner\PS3EyeCamera.cpp">
+      <Filter>Source Files\scanner</Filter>
+    </ClCompile>
+    <ClCompile Include="scanner\Leveler.cpp">
+      <Filter>Source Files\scanner</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

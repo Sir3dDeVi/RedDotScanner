@@ -1,0 +1,18 @@
+import "ViewModel/MainViewModel.idl";
+
+
+namespace RedDotScanner
+{
+    [default_interface]
+    runtimeclass IntrinsicCalibrationDialog : Microsoft.UI.Xaml.Controls.ContentDialog, Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        IntrinsicCalibrationDialog(Microsoft.UI.Xaml.XamlRoot xamlRoot, Camera camera);
+
+        Camera Camera { get; };
+
+        Microsoft.UI.Xaml.Media.Imaging.WriteableBitmap PreviewFrame { get; };
+        Boolean IsCameraMode { get; };
+        Boolean IsPictureMode { get; };
+        Microsoft.UI.Xaml.Media.Imaging.WriteableBitmap SelectedFrame { get; set; };
+    }
+}

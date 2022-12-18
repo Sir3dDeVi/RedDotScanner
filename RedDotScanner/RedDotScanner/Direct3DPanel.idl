@@ -1,0 +1,7 @@
+namespace RedDotScanner
+{
+    [default_interface]
+    unsealed runtimeclass Direct3DPanel : Microsoft.UI.Xaml.Controls.SwapChainPanel
+    {
+    }
+}

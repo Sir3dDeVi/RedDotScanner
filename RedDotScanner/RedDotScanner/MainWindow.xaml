@@ -1,0 +1,76 @@
+﻿<Window
+    x:Class="RedDotScanner.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:RedDotScanner"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+
+    Closed="Window_Closed"
+>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32" />
+            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid
+            x:Name="AppTitleBar"
+            Grid.Row="0"
+        >
+            <TextBlock
+                TextWrapping="NoWrap"
+                Style="{ThemeResource CaptionTextBlockStyle}"
+                VerticalAlignment="Center"
+                Margin="8, 0, 0, 0"
+            >
+                <!--<Run Foreground="Red">&#x25CF;</Run> Scanner-->
+                <Run Foreground="Red" FontWeight="Bold">RED</Run><Run Foreground="Black">&#x25CF;</Run>
+                <Run>Scanner</Run>
+            </TextBlock>
+        </Grid>
+
+        <Grid
+            x:Name="TopBar"
+            Grid.Row="1"
+        >
+            <Button
+                Style="{StaticResource PaneToggleButtonStyle}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+            >
+                <Button.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Open..." Click="Open_Click" IsEnabled="{x:Bind ViewModel.Scanner.IsAvailable}" />
+                        <MenuFlyoutItem Text="Save as..." Click="SaveAs_Click" IsEnabled="{x:Bind ViewModel.Scanner.IsAvailable}" />
+                    </MenuFlyout>
+                </Button.Flyout>
+            </Button>
+
+            <NavigationView
+                PaneDisplayMode="Top"
+                IsBackButtonVisible="Collapsed"
+                IsSettingsVisible="False"
+                HorizontalAlignment="Center"
+                Margin="32 0"
+                OpenPaneLength="-1"
+                
+                SelectedItem="{x:Bind CurrentTab, Mode=TwoWay}"
+            >
+                <NavigationView.Resources>
+                    <x:Double x:Key="TopNavigationViewPaneCustomContentMinWidth">0</x:Double>
+                </NavigationView.Resources>
+                <NavigationView.MenuItems>
+                    <NavigationViewItem x:Name="NavItemSetup" Content="Setup" />
+                    <NavigationViewItem x:Name="NavItemCapture" Content="Capture" />
+                </NavigationView.MenuItems>
+            </NavigationView>
+        </Grid>
+
+        <local:SetupView Grid.Row="2" ViewModel="{x:Bind ViewModel}" Visibility="{x:Bind SetupViewVisibility, Mode=OneWay}" />
+        <local:CaptureView x:Name="CaptureView"  Grid.Row="2" ViewModel="{x:Bind ViewModel}" Visibility="{x:Bind CaptureViewVisibility, Mode=OneWay}" />
+    </Grid>
+</Window>

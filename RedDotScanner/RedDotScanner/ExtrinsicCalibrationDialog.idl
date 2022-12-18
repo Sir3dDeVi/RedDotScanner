@@ -1,0 +1,19 @@
+import "ViewModel/MainViewModel.idl";
+
+
+namespace RedDotScanner
+{
+    [default_interface]
+    runtimeclass ExtrinsicCalibrationDialog : Microsoft.UI.Xaml.Controls.ContentDialog, Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        ExtrinsicCalibrationDialog(Microsoft.UI.Xaml.XamlRoot xamlRoot, Camera camera);
+
+        Camera Camera { get; };
+
+        ExtrinsicCalibrationPoint SelectedPoint { get; };
+        Boolean IsPointSelected { get; };
+        Boolean CanCalibrate { get; };
+
+        Windows.Globalization.NumberFormatting.DecimalFormatter CoordinateFormatter { get; };
+    }
+}

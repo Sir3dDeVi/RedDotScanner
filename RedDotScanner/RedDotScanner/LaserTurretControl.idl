@@ -1,0 +1,13 @@
+import "ViewModel/MainViewModel.idl";
+
+
+namespace RedDotScanner
+{
+    [default_interface]
+    runtimeclass LaserTurretControl : Microsoft.UI.Xaml.Controls.UserControl
+    {
+        LaserTurretControl();
+        
+        LaserTurret LaserTurret { get; set; };
+    }
+}

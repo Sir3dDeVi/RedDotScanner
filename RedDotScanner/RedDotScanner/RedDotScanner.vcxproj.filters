@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="MainWindow.xaml" />
+    <Page Include="SetupView.xaml" />
+    <Page Include="IntrinsicCalibrationDialog.xaml" />
+    <Page Include="ExtrinsicCalibrationDialog.xaml" />
+    <Page Include="CaptureView.xaml" />
+    <Page Include="LaserTurretControl.xaml" />
+    <Page Include="MyResources.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="App.idl" />
+    <Midl Include="MainWindow.idl" />
+    <Midl Include="ViewModel\MainViewModel.idl">
+      <Filter>ViewModel</Filter>
+    </Midl>
+    <Midl Include="Helpers\Helpers.idl">
+      <Filter>Helpers</Filter>
+    </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="ViewModel\NXTDeviceInfo.cpp">
+      <Filter>ViewModel</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModel\MainViewModel.cpp">
+      <Filter>ViewModel</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModel\LaserTurret.cpp">
+      <Filter>ViewModel</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModel\Camera.cpp">
+      <Filter>ViewModel</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModel\Triangulator.cpp">
+      <Filter>ViewModel</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\DoubleToStringConverter.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\BoolToVisibilityConverter.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModel\ExtrinsicCalibrationPoint.cpp">
+      <Filter>ViewModel</Filter>
+    </ClCompile>
+    <ClCompile Include="Direct3DPanel.cpp" />
+    <ClCompile Include="WorldView.cpp" />
+    <ClCompile Include="SimpleShader.cpp" />
+    <ClCompile Include="ViewModel\Scanner.cpp">
+      <Filter>ViewModel</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModel\PanTilt.cpp">
+      <Filter>ViewModel</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewModel\BundleAdjustmentResult.cpp">
+      <Filter>ViewModel</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="ViewModel\NXTDeviceInfo.h">
+      <Filter>ViewModel</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel\MainViewModel.h">
+      <Filter>ViewModel</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel\LaserTurret.h">
+      <Filter>ViewModel</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel\Camera.h">
+      <Filter>ViewModel</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel\Triangulator.h">
+      <Filter>ViewModel</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel\NotifyPropretyChangedImpl.h">
+      <Filter>ViewModel</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\DoubleToStringConverter.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\BoolToVisibilityConverter.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel\ExtrinsicCalibrationPoint.h">
+      <Filter>ViewModel</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleShader.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Render.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="ViewModel\Scanner.h">
+      <Filter>ViewModel</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel\PanTilt.h">
+      <Filter>ViewModel</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewModel\BundleAdjustmentResult.h">
+      <Filter>ViewModel</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="ViewModel">
+      <UniqueIdentifier>{8b5b02f4-47bb-4250-8a95-db5a9ebd43cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helpers">
+      <UniqueIdentifier>{bba9a1bd-b7e9-4431-a1f9-e2fd367fcad8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="SimpleVertexShader.hlsl" />
+    <FxCompile Include="SimplePixelShader.hlsl" />
+  </ItemGroup>
+</Project>

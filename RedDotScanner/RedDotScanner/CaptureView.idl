@@ -1,0 +1,15 @@
+import "ViewModel/MainViewModel.idl";
+
+
+namespace RedDotScanner
+{
+    [default_interface]
+    runtimeclass CaptureView : Microsoft.UI.Xaml.Controls.UserControl
+    {
+        CaptureView();
+
+        MainViewModel ViewModel { get; set; };
+
+        WorldView WorldView { get; };
+    }
+}

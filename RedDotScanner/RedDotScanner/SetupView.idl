@@ -1,0 +1,13 @@
+import "ViewModel/MainViewModel.idl";
+
+
+namespace RedDotScanner
+{
+    [default_interface]
+    runtimeclass SetupView : Microsoft.UI.Xaml.Controls.UserControl
+    {
+        SetupView();
+
+        MainViewModel ViewModel { get; set; };
+    }
+}
